@@ -74,6 +74,7 @@ io.on("connection", (socket) => {
     io.to(user.room).emit("message", formatMessage(user.username, msg));
 
     //Send the message to flask
+    if (msg.includes("?")) return;
     msgwords = msg.split(" ");
     if (msgwords.length > 2) {
       sendmsgtoflask(msg)
@@ -90,7 +91,7 @@ io.on("connection", (socket) => {
                     console.log(
                       `Updated Score of ${user.username} with id ${user.id} to ${userScore}`
                     );
-                    if (userScore === -8) {
+                    if (userScore === -5) {
                       io.to(user.id).emit(
                         "message",
                         formatMessage(
